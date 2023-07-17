@@ -5,7 +5,9 @@
     <p>블로그 게시판 첫 화면입니다.</p>
     <!-- context -->
     <!-- 조건문, 순회문 -->
-
+    <form action="{% url 'blog:write' %}" class="btn">
+        <input type="submit" value="Write">
+    </form>
     <!-- 글이 있을 때 -->
     <!-- 테이블 -->
     {% if posts %}
@@ -28,8 +30,8 @@
             </tbody>
         </table>
     {% else %}
-        <p>작성된 게시물이 없습니다.</p>
-    {% endif %}
     <!-- 글이 없을 때 -->
     <!-- 글이 없습니다. -->
+        <p>작성된 게시물이 없습니다.</p>
+    {% endif %}
 {% endblock %}
