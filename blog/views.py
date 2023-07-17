@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from .models import Post, Comment
+from .forms import PostForm
 
 # Create your views here.
 # def index(request):
@@ -23,6 +24,29 @@ class Index(View):
         return render(request, "blog/post_list.html", context)
     
 
+class WriteView(View):
+    def get(self, request):
+        form = PostForm()
+        context = {
+            "form": form,
+            "title": "Blog"
+        }
+        return render(request, "blog/post_form.html", context)
+    
+    def post(self, request):
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.writer = request.user
+            post.save()
+            return redirect("blog:list")
+        
+        context = {
+            'form': form
+        }
+
+        return render(request, "blog/post_form.html", context)
 
 class DetailView(View):
     def get(self, request, pk):
