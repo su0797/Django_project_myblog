@@ -102,3 +102,11 @@ class Delete(View):
         post = Post.objects.get(pk=pk)
         post.delete()
         return redirect('blog:list')
+
+
+class SearchView(View):
+    def get():
+        pass
+
+    def post():
+        pass

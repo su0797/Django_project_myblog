@@ -1,20 +1,6 @@
-{% extends 'blog/base.html' %}
+{% extends "blog/base.html" %}
 
 {% block content %}
-    <p>블로그 게시판 화면</p>
-    <p>블로그 게시판 첫 화면입니다.</p>
-    <!-- context -->
-    <!-- 조건문, 순회문 -->
-    <form action="{% url 'blog:write' %}" class="btn">
-        <input type="submit" value="Write">
-    </form>
-    <form action="{% url 'blog:search' %}" method="post">
-        <input type="search" name="searched">
-        {% csrf_token %}
-        <button type="submit">Search</button>
-    </form>
-    <!-- 글이 있을 때 -->
-    <!-- 테이블 -->
     {% if posts %}
         <table class="table table-bordered">
             <thead class="table-light">
@@ -39,6 +25,6 @@
     {% else %}
     <!-- 글이 없을 때 -->
     <!-- 글이 없습니다. -->
-        <p>작성된 게시물이 없습니다.</p>
+        <p>검색된 게시물이 없습니다.</p>
     {% endif %}
-{% endblock %}
+{% endblock  %}
