@@ -48,6 +48,7 @@ class WriteView(View):
 
         return render(request, "blog/post_form.html", context)
 
+
 class DetailView(View):
     def get(self, request, pk):
         post = Post.objects.get(pk=pk)
@@ -62,3 +63,35 @@ class DetailView(View):
             "post_created_at" : post.created_at,
         }
         return render(request, 'blog/post_detail.html', context)
+    
+
+class EditView(View):
+    def get(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        form = PostForm(initial={'title' : post.title, 'content' : post.content, 'category' : post.category})
+
+        context = {
+            'form' : form,
+            'post' : post,
+            'title' : 'Blog' 
+        }
+        return render(request, 'blog/post_edit.html', context)
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post.title = form.cleaned_data['title']
+            post.content = form.cleaned_data['content']
+            post.category = form.cleaned_data['category']
+            post.save()
+            return redirect('blog:detail', pk=pk )
+
+        context = {
+            'form' : form,
+            'post' : post,
+            'title' : 'Blog'
+        } 
+        
+        return render(request, 'blog/post_edit.html', context)
