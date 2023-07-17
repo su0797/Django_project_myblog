@@ -14,6 +14,7 @@
                 <tr>
                     <td>제목</td>
                     <td>작성자</td>
+                    <td>카테고리</td>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@
                     <tr>
                         <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
                         <td>{{ post.writer }}</td>
+                        <td>{{ post.category }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
