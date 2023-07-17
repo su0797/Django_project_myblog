@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Title: {{ post_title }}</h2>
+
+    <!-- {% if post.writer == requwst.user %}
+        <a href=""></a> 
+        {% endif %}-->
+    <p>Writer: {{ post_writer }}</p>
+    <p>Content: {{ post_content }}</p>
+    <p>Date: {{ post_created_at }}</p>
+
+{% endblock %}
