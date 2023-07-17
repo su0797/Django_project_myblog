@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from .models import Post
 
 # Create your views here.
 # def index(request):
@@ -11,10 +12,14 @@ from django.views import View
 #     return HttpResponse('No!!!')
 
 
+###Post
 class Index(View):
     def get(self, request):
-        # return HttpResponse('Index page GET class')
+        posts = Post.objects.all()
+        context = {
+            "posts" : posts,
+            "title" : "Blog"
+        }
+        return render(request, "blog/post_list.html", context)
+    
 
-        # 데이터베이스에 접근해서 값을 가져와야 합니다.
-        # context = 데이터베이스에서 가져온 값
-        return render(request, 'blog/board.html')
