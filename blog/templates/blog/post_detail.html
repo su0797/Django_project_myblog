@@ -4,6 +4,11 @@
     <h2>Title: {{ post_title }}</h2>
 
     <a href="{% url 'blog:edit' pk=post_id %}" class="btn">Edit</a>
+    <form action="{% url 'blog:delete' pk=post_id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete" class="btn">
+    </form>
+
     <!-- {% if post.writer == requwst.user %}
         <a href=""></a> 
         {% endif %}-->
