@@ -104,9 +104,19 @@ class Delete(View):
         return redirect('blog:list')
 
 
-class SearchView(View):
-    def get():
-        pass
+# class SearchView(View):
+#     def get(self, request):
+#         selected_
+#         pass
 
-    def post():
-        pass
+#     def post():
+#         pass
+
+
+def search(request):
+        if request.method == 'POST':
+            searched = request.POST['searched']        
+            posts = Post.objects.filter(title__contains=searched)
+            return render(request, 'blog/post_search.html', {'searched': searched, 'posts': posts})
+        else:
+            return render(request, 'blog/post_search.html', {})
