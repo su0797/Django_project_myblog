@@ -10,8 +10,8 @@ class JoinForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['email']
-        # fields = UserCreationForm.Meta.fields + ('email',)
+        fields = ['name', 'email']
+
 
 
 class LoginForm(AuthenticationForm):
@@ -19,7 +19,3 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['email', 'password']
-        # widgets = {
-        #     'email': forms.EmailInput(attrs={'placeholder': 'email'}),
-        #     'password': forms.PasswordInput(attrs={'placeholder': 'password'}),
-        # }

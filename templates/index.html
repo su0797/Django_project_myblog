@@ -3,4 +3,6 @@
 {% block content %}
     <h1>Index Page</h1>
     <h2>Welcome!</h2>
+    <a href="{% url 'user:join' %}" class="btn">Join</a>
+    <a href="{% url 'user:login' %}" class="btn">Login</a>
 {% endblock %}

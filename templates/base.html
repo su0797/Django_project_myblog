@@ -9,7 +9,18 @@
     </title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        {% if user.is_authenticated %}
+            <p>Welcome! {{ user.email }}</p>
+            <a href="{% url 'user:logout' %}" class="btn">Logout</a>
+        {% else %}
+            <p>Please, Login</p>
+            <a href="{% url 'user:login' %}" class="btn">Login</a>
+        {% endif %}
+
+        {% block content %}
+        
+        {% endblock  %}
+    </div>
 </body>
 </html>
