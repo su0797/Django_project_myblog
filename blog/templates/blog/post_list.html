@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<hr>
     {% if user.is_authenticated %}
-        <p>블로그 게시판 화면</p>
+        <p>블로그 게시판</p>
         <!-- context -->
         <!-- 조건문, 순회문 -->
         <form action="{% url 'blog:write' %}" class="btn">

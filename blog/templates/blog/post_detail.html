@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<hr>
     <h2>Title: {{ post_title }}</h2>
     {% if post_writer == request.user %}
         <a href="{% url 'blog:edit' pk=post_id %}" class="btn">Edit</a>

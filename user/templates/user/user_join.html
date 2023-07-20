@@ -1,4 +1,5 @@
 {% block content %}
+<hr>
 <h2>회원가입 페이지</h2>
 <form action="{% url 'user:join' %}" method="post">
     {% csrf_token %}
