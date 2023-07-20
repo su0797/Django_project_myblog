@@ -2,10 +2,13 @@
 
 {% block content %}
 <hr>
-<h2>로그인 페이지</h2>
-<form action="{% url 'user:login' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-</form>
+<div>
+    <h2>로그인 페이지</h2>
+    <form action="{% url 'user:login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Login">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 {% endblock  %}
