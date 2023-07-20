@@ -113,10 +113,22 @@ class Delete(View):
 #         pass
 
 
-def search(request):
-        if request.method == 'POST':
-            searched = request.POST['searched']  
-            posts = Post.objects.filter(title__contains=searched) or Post.objects.filter(writer__contains=searched) or Post.objects.filter(category__contains=searched)
-            return render(request, 'blog/post_search.html', {'searched': searched, 'posts': posts})
-        else:
-            return render(request, 'blog/post_search.html', {})
+# def search(request):
+#         if request.method == 'POST':
+#             searched = request.POST['searched']  
+#             posts = Post.objects.filter(title__contains=searched) or Post.objects.filter(writer__contains=searched) or Post.objects.filter(category__contains=searched)
+#             return render(request, 'blog/post_search.html', {'searched': searched, 'posts': posts})
+#         else:
+#             return render(request, 'blog/post_search.html', {})
+
+#나중에 검색 기능 추가하기#
+class PostSearch(View):
+    def get(self, request, tag):
+        print(f'request.GET: {request.GET}')
+        post_objs = Post.objects.filter(category=tag)
+        print(f'tag: {tag}')
+        context = {
+            'title': 'Main Page',
+            'posts': post_objs,
+        }
+        return render(request, 'blog/post_list.html', context)
