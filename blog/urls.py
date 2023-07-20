@@ -8,7 +8,7 @@ urlpatterns = [
     # path("", views.index), # FBV
     path("", views.Index.as_view(), name='list'),
     # 글 조회
-    path("<int:pk>/", views.DetailView.as_view(), name='detail'),
+    path("detail/<int:pk>/", views.DetailView.as_view(), name='detail'),
     # 글 작성
     path("write/", views.WriteView.as_view(), name='write'),
     # 글 수정
