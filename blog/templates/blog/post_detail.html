@@ -2,19 +2,51 @@
 
 {% block content %}
     <h2>Title: {{ post_title }}</h2>
+    {% if post_writer == request.user %}
+        <a href="{% url 'blog:edit' pk=post_id %}" class="btn">Edit</a>
+        <form action="{% url 'blog:delete' pk=post_id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn">
+        </form>
+    {% endif %}
 
-    <a href="{% url 'blog:edit' pk=post_id %}" class="btn">Edit</a>
-    <form action="{% url 'blog:delete' pk=post_id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Delete" class="btn">
-    </form>
-
-    <!-- {% if post.writer == requwst.user %}
+    <!-- {% if post.writer == request.user %}
         <a href=""></a> 
         {% endif %}-->
     <p>Writer: {{ post_writer }}</p>
     <p>Content: {{ post_content }}</p>
     <p>Category: {{ post_category }}</p>
     <p>Date: {{ post_created_at }}</p>
+    <hr>
 
+    <h3>Comment</h3>
+    <form action="{% url 'blog:cm-write' pk=post_id %}" method="post">
+        {% csrf_token %}
+        {% if comment_form.errors %}
+            {% with form=comment_form %}
+                {% include 'blog/form_error.html' %}
+            {% endwith %}
+        {% else %}
+            {{ comment_form.content }}
+        {% endif %}
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.content}} / {{ comment.created_at}}
+                    {% if comment.writer == request.user %}
+                        <form action="{% url 'blog:cm-delete' pk=comment.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="✗" class="btn">
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor%}
+        </ul>
+    {% else %}
+        <p>댓글이 없습니다.</p>
+    {% endif %}
 {% endblock %}

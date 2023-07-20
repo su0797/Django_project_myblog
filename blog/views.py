@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.http import HttpResponse
 from django.views import View
 from .models import Post, Comment
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 # Create your views here.
 # def index(request):
@@ -24,7 +26,7 @@ class Index(View):
         return render(request, "blog/post_list.html", context)
     
 
-class WriteView(View):
+class WriteView(LoginRequiredMixin,View):
     def get(self, request):
         form = PostForm()
         context = {
@@ -50,9 +52,12 @@ class WriteView(View):
 
 
 class DetailView(View):
+
     def get(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        # comments = Comment.objects.filter(post=post)
+        post = Post.objects.prefetch_related('comment_set').get(pk=pk)
+        comments = post.comment_set.all()
+        comment_form = CommentForm()
+
         context = {
             "title" : "Blog",
             "post_id" : pk,
@@ -61,13 +66,15 @@ class DetailView(View):
             "post_content" : post.content,
             "post_category" : post.category,
             "post_created_at" : post.created_at,
+            "comments" : comments,
+            "comment_form" : comment_form,
         }
         return render(request, 'blog/post_detail.html', context)
     
 
 class EditView(View):
     def get(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)
         form = PostForm(initial={'title' : post.title, 'content' : post.content, 'category' : post.category})
 
         context = {
@@ -78,7 +85,7 @@ class EditView(View):
         return render(request, 'blog/post_edit.html', context)
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)
         form = PostForm(request.POST)
 
         if form.is_valid():
@@ -99,7 +106,7 @@ class EditView(View):
 
 class Delete(View):
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post,pk=pk)
         post.delete()
         return redirect('blog:list')
 
@@ -132,3 +139,40 @@ class PostSearch(View):
             'posts': post_objs,
         }
         return render(request, 'blog/post_list.html', context)
+    
+
+
+###Comment
+class CommentWrite(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        form = CommentForm(request.POST)
+        post = get_object_or_404(Post, pk=pk)
+
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            writer = request.user
+
+            try:
+                comment = Comment.objects.create(post=post, content=content, writer=writer)
+            except ObjectDoesNotExist as e:
+                print('게시물이 존재하지 않습니다.', str(e))
+            except ValidationError as e:
+                print('오류가 발생했습니다.', str(e))
+            return redirect('blog:detail', pk=pk)
+        
+        context = {
+            'title':'Blog',
+            'post_id':pk,
+            'comments':post.comment_set.all(),
+            'comment_form':form
+        }
+        return render(request, 'blog/post_detail.html', context)
+    
+
+class CommentDelete(View):
+    def post(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        post_id = comment.post.id
+        comment.delete()
+        return redirect('blog:detail', pk=post_id)
+    

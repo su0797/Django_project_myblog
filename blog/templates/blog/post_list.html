@@ -1,57 +1,62 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>블로그 게시판 화면</p>
-    <p>블로그 게시판 첫 화면입니다.</p>
-    <!-- context -->
-    <!-- 조건문, 순회문 -->
-    <form action="{% url 'blog:write' %}" class="btn">
-        <input type="submit" value="Write">
-    </form>
-    <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
-        {% csrf_token %} 
-        카테고리 검색 : <input id="search-input" type="text" placeholder="검색어를 입력하세요."/>   
-        <input type="submit" value="Search">
-    </form>
-
-    <!-- 글이 있을 때 -->
-    <!-- 테이블 -->
-    {% if posts %}
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>카테고리</td>
-                    <td>작성시간</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in posts %}
+    {% if user.is_authenticated %}
+        <p>블로그 게시판 화면</p>
+        <!-- context -->
+        <!-- 조건문, 순회문 -->
+        <form action="{% url 'blog:write' %}" class="btn">
+            <input type="submit" value="Write">
+        </form>
+        <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
+            {% csrf_token %} 
+            카테고리 검색 : <input id="search-input" type="text" placeholder="검색어를 입력하세요."/>   
+            <input type="submit" value="Search">
+        </form>
+        <form action="{% url 'blog:list' %}" class="btn">
+            <input type="submit" value="⟳">
+        </form>
+        <!-- 글이 있을 때 -->
+        <!-- 테이블 -->
+        {% if posts %}
+            <table class="table table-bordered">
+                <thead class="table-light">
                     <tr>
-                        <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
-                        <td>{{ post.writer }}</td>
-                        <td>{{ post.category }}</td>
-                        <td>{{ post.created_at }}</td>
+                        <td>제목</td>
+                        <td>작성자</td>
+                        <td>카테고리</td>
+                        <td>작성시간</td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
+                            <td>{{ post.writer }}</td>
+                            <td>{{ post.category }}</td>
+                            <td>{{ post.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <!-- 글이 없을 때 -->
+        <!-- 글이 없습니다. -->
+            <p>작성된 게시물이 없습니다.</p>
+        {% endif %}
+        <script>
+            const form = document.querySelector('#search-form')
+            const input = document.querySelector('#search-input')
+            input.addEventListener('input', () => {
+                inputValue = input.value
+                s = `{% url 'blog:search' tag="value" %}`
+                console.log(s)
+                s = s.replace('value', inputValue)
+                console.log(s)
+                form.action = s
+            });
+        </script>
     {% else %}
-    <!-- 글이 없을 때 -->
-    <!-- 글이 없습니다. -->
-        <p>작성된 게시물이 없습니다.</p>
+        <p>로그인 후 이용해주세요.</p> 
     {% endif %}
-    <script>
-        const form = document.querySelector('#search-form')
-        const input = document.querySelector('#search-input')
-        input.addEventListener('input', () => {
-            inputValue = input.value
-            s = `{% url 'blog:search' tag="value" %}`
-            console.log(s)
-            s = s.replace('value', inputValue)
-            console.log(s)
-            form.action = s
-        });
-    </script>
 {% endblock %}
