@@ -127,6 +127,7 @@ myblog
 - 게시글 조회
 <img width="1429" alt="스크린샷 2023-07-21 오전 9 41 31" src="https://github.com/su0797/Django_project_myblog/assets/95666574/7f8171c6-e3f0-419a-a5e0-1e8ee316316d">
 
+<img width="1426" alt="스크린샷 2023-07-21 오후 3 15 55" src="https://github.com/su0797/Django_project_myblog/assets/95666574/8e468da6-5738-4ce9-aef0-76bcb2019ca5">
 
 
 
