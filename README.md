@@ -86,7 +86,7 @@ myblog
 |'/'|메인페이지|
 |'blog/'|게시글 전체 페이지|
 |'blog/write/'|게시글 작성|
-|'blog/detail/<int:pk>'|게시글 조회|
+|'blog/detail/<int:pk>/'|게시글 조회|
 |'blog/edit/<int:pk>/'|게시글 수정|
 |'blog/delete/<int:pk>/'|게시글 삭제|
 |'blog/search/<str:tag>/'|게시글 검색|
