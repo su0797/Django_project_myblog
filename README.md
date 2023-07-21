@@ -112,7 +112,8 @@ myblog
 
 
 - 게시판 메인 페이지
-<img width="1428" alt="스크린샷 2023-07-21 오전 1 48 05" src="https://github.com/su0797/Django_project_myblog/assets/95666574/237b1e03-7509-4a89-a39e-d6249e599073">
+<img width="1429" alt="스크린샷 2023-07-21 오전 9 41 54" src="https://github.com/su0797/Django_project_myblog/assets/95666574/91057364-b140-4d4c-b4f0-0edc902a95b1">
+
 
 
 
@@ -122,17 +123,18 @@ myblog
 
 
 - 게시글 수정
-<img width="1427" alt="스크린샷 2023-07-21 오전 1 51 27" src="https://github.com/su0797/Django_project_myblog/assets/95666574/2f55a784-c123-4e8d-a913-96c935f6d9ee">
+<img width="1428" alt="스크린샷 2023-07-21 오전 9 44 52" src="https://github.com/su0797/Django_project_myblog/assets/95666574/f23fac6f-78e5-4b28-bbab-dd67c5a842ae">
 
 
 
 - 게시글 조회
-<img width="1430" alt="스크린샷 2023-07-21 오전 1 51 06" src="https://github.com/su0797/Django_project_myblog/assets/95666574/802d53c4-6b77-47e1-977d-af19d564eaef">
+<img width="1429" alt="스크린샷 2023-07-21 오전 9 41 31" src="https://github.com/su0797/Django_project_myblog/assets/95666574/7f8171c6-e3f0-419a-a5e0-1e8ee316316d">
 
 
 
 - 게시글 검색
-<img width="1429" alt="스크린샷 2023-07-21 오전 1 50 39" src="https://github.com/su0797/Django_project_myblog/assets/95666574/0ed48093-5d17-432a-b83a-3f3c97fb8443">
+<img width="1430" alt="스크린샷 2023-07-21 오전 9 42 33" src="https://github.com/su0797/Django_project_myblog/assets/95666574/66ecdfb3-361d-496a-887a-5254727003cc">
+
 
 
 
