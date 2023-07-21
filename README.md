@@ -107,7 +107,8 @@ myblog
 
 
 - 회원가입 
-<img width="1429" alt="스크린샷 2023-07-21 오전 1 50 39" src="https://github.com/su0797/Django_project_myblog/assets/95666574/88d6618f-5320-4f53-b1e9-0b730746d097">
+<img width="1430" alt="스크린샷 2023-07-21 오전 9 46 33" src="https://github.com/su0797/Django_project_myblog/assets/95666574/6eba5220-6d42-4f3e-8ca0-5cb2dd77a4da">
+
 
 
 
