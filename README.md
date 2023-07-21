@@ -104,8 +104,6 @@ myblog
 - 로그인 
 <img width="1430" alt="스크린샷 2023-07-21 오후 2 23 40" src="https://github.com/su0797/Django_project_myblog/assets/95666574/545d91cc-81f8-45d3-8a9a-81760940ea55">
 
-<img width="1425" alt="스크린샷 2023-07-21 오후 2 22 16" src="https://github.com/su0797/Django_project_myblog/assets/95666574/d9185e68-8a92-417a-8cbc-170fad926b03">
-
 
 
 - 회원가입 
@@ -117,6 +115,7 @@ myblog
 - 게시판 메인 페이지
 <img width="1429" alt="스크린샷 2023-07-21 오전 9 41 54" src="https://github.com/su0797/Django_project_myblog/assets/95666574/91057364-b140-4d4c-b4f0-0edc902a95b1">
 
+<img width="1425" alt="스크린샷 2023-07-21 오후 2 22 16" src="https://github.com/su0797/Django_project_myblog/assets/95666574/d9185e68-8a92-417a-8cbc-170fad926b03">
 
 
 
