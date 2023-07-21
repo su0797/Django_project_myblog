@@ -102,7 +102,9 @@ myblog
 
 
 - 로그인 
-<img width="1425" alt="스크린샷 2023-07-21 오전 1 49 09" src="https://github.com/su0797/Django_project_myblog/assets/95666574/e0d8c943-3909-46ac-81c0-52cd7805c2ca">
+<img width="1430" alt="스크린샷 2023-07-21 오후 2 23 40" src="https://github.com/su0797/Django_project_myblog/assets/95666574/545d91cc-81f8-45d3-8a9a-81760940ea55">
+
+<img width="1425" alt="스크린샷 2023-07-21 오후 2 22 16" src="https://github.com/su0797/Django_project_myblog/assets/95666574/d9185e68-8a92-417a-8cbc-170fad926b03">
 
 
 
