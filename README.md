@@ -63,7 +63,8 @@ myblog
 
 
 ## 4. ERD
-![Untitled](https://github.com/su0797/Django_project_myblog/assets/95666574/649e54ca-ece2-4f68-93c0-94643f3f5f51)
+![Untitled (1)](https://github.com/su0797/Django_project_myblog/assets/95666574/2035eb5e-091f-4e7d-a4bb-e5f8879f3d9e)
+
 
 
 ## 5. 주요 기능
