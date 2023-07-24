@@ -14,14 +14,20 @@
     </head>
     <body>
         <div class="container">
-            {% if user.is_authenticated %}
-                <p>Welcome! {{ user.email }}</p>
-                <a href="{% url 'user:logout' %}" class="btn">Logout</a>
-            {% else %}
-                <p>Please, Login</p>
-                <a href="{% url 'user:login' %}" class="btn">Login</a>
-            {% endif %}
-            <a href="http://127.0.0.1:8000" class="btn">Home</a>
+                <nav>
+                    <ul>
+                        {% if user.is_authenticated %}
+                            <li><p>Welcome! {{ user.email }}</p></li>
+                            <li><a href="{% url 'user:logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><p>Please, Login</p></li>
+                            <li><a href="{% url 'user:login' %}">Login</a></li>
+                        {% endif %}
+                        <li><a href="http://127.0.0.1:8000">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
             {% block content %}
             
             {% endblock  %}
