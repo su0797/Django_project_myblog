@@ -29,20 +29,22 @@
         <!-- 테이블 -->
         <main id="main">
             {% if posts %}
-                <table class="table table-bordered">
-                    <thead class="table-light">
+                <table class="table ">
+                    <thead>
                         <tr>
-                            <td>Title</td>
-                            <td>Content</td>
-                            <td>Category</td>
-                            <td>Writer</td>
-                            <td>Create Date</td>
+                        <th scope="col">No.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Writer</th>
+                        <th scope="col">Create Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for post in posts %}
                             <tr>
-                                <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
+                                <th scope="row">{{ post.pk }}</th>
+                                <td><a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title }}</a></td>
                                 <td>{{ post.content | truncatewords:45 }}</td>
                                 <td>{{ post.category }}</td>
                                 <td>{{ post.writer }}</td>
