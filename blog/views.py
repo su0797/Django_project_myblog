@@ -1,18 +1,15 @@
+from typing import Any
+from django import http
+from django.forms.models import BaseModelForm
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.http import HttpResponse
-from django.views import View
-from .models import Post, Comment
+from django.views.generic import View, UpdateView
+from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm
 
-# Create your views here.
-# def index(request):
-#     if request.method == 'GET':
-#         return HttpResponse('Index page GET')
-#     # 나머지 요청
-#     # 에러, 예외처리
-#     return HttpResponse('No!!!')
 
 
 ###Post
@@ -171,8 +168,50 @@ class CommentWrite(LoginRequiredMixin, View):
 
 class CommentDelete(View):
     def post(self, request, pk):
-        comment = get_object_or_404(Comment, pk=pk)
-        post_id = comment.post.id
-        comment.delete()
-        return redirect('blog:detail', pk=post_id)
+        if request.user.is_authenticated:
+            comment = get_object_or_404(Comment, pk=pk)
+            post_id = comment.post.id
+            if comment.writer == request.user:
+                comment.delete()
+                return redirect(comment.post.get_absolute_url())
+            else:
+                return HttpResponse('You are not allowed to delete this comment')
+        return redirect('/blog/')
     
+
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form = CommentForm
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.writer = current_user
+            return super(CommentUpdate, self).form_valid(form)
+        else:
+            return redirect('/blog/')
+        
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            comment = self.get_object()
+            if comment.writer == request.user:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return HttpResponse('You are not allowed to update this comment')
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+###Category
+def category_page(request, slug):
+    category = Category.objects.get(slug=slug)
+    categories = Category.objects.all().order_by('-name')
+    context = {
+        'post_list': Post.objects.filter(category=category).order_by('-pk'),
+        'categories': categories,
+        'no_category_post_count': Post.objects.filter(category=None).count(),
+        'category': category,
+        'category_list': Category.objects.all().order_by('-name'),
+    }
+    return render(request, 'blog/post_list.html', context)

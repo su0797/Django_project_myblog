@@ -18,7 +18,9 @@ urlpatterns = [
     # 글 검색
     path("search/<str:tag>/", views.PostSearch.as_view(), name='search'),
     # 코멘트 작성
-    path("delete/<int:pk>/comment/write/", views.CommentWrite.as_view(), name="cm-write"),
+    path("<int:pk>/comment/write/", views.CommentWrite.as_view(), name="cm-write"),
+    # 코멘트 수정
+    path("comment/update/<int:pk>/", views.CommentWrite.as_view(), name="cm-update"),
     # 코멘트 삭제
     path("delete/<int:pk>/comment/delete/", views.CommentDelete.as_view(), name="cm-delete")
 ]

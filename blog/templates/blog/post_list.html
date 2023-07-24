@@ -3,48 +3,68 @@
 {% block content %}
 <hr>
     {% if user.is_authenticated %}
-        <p>블로그 게시판</p>
-        <!-- context -->
-        <!-- 조건문, 순회문 -->
+        <h1>Blog</h1>
         <form action="{% url 'blog:write' %}" class="btn">
             <input type="submit" value="Write">
         </form>
-        <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
-            {% csrf_token %} 
-            카테고리 검색 : <input id="search-input" type="text" placeholder="검색어를 입력하세요."/>   
-            <input type="submit" value="Search">
-        </form>
+        <input type="text" name="q" id="search-input">
+        <button id="search-btn">Search</button>
         <form action="{% url 'blog:list' %}" class="btn">
             <input type="submit" value="⟳">
         </form>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <!-- <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
+            {% csrf_token %} 
+            카테고리 검색 : <input id="search-input" type="text" placeholder="검색어를 입력하세요."/>   
+            <input type="submit" value="Search">
+        </form> -->
+        
         <!-- 글이 있을 때 -->
         <!-- 테이블 -->
-        {% if posts %}
-            <table class="table table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <td>제목</td>
-                        <td>작성자</td>
-                        <td>카테고리</td>
-                        <td>작성시간</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for post in posts %}
+        <main id="main">
+            {% if posts %}
+                <table class="table table-bordered">
+                    <thead class="table-light">
                         <tr>
-                            <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
-                            <td>{{ post.writer }}</td>
-                            <td>{{ post.category }}</td>
-                            <td>{{ post.created_at }}</td>
+                            <td>Title</td>
+                            <td>Content</td>
+                            <td>Category</td>
+                            <td>Writer</td>
+                            <td>Create Date</td>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-        <!-- 글이 없을 때 -->
-        <!-- 글이 없습니다. -->
-            <p>작성된 게시물이 없습니다.</p>
-        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                            <tr>
+                                <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
+                                <td>{{ post.content | truncatewords:45 }}</td>
+                                <td>{{ post.category }}</td>
+                                <td>{{ post.writer }}</td>
+                                <td>{{ post.created_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+            <!-- 글이 없을 때 -->
+            <!-- 글이 없습니다. -->
+                <p>작성된 게시물이 없습니다.</p>
+            {% endif %}
+        </main>
+        <aside>
+            <h2>Category</h2>
+            <ul>
+                {% for category in category_list %}
+                <li><a href="{{ category.get_absolute_url }}">{{ category.name }} {{ category.post_set.count }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
         <script>
             const form = document.querySelector('#search-form')
             const input = document.querySelector('#search-input')
@@ -55,6 +75,11 @@
                 s = s.replace('value', inputValue)
                 console.log(s)
                 form.action = s
+            });
+            document.querySelector('#search-btn').addEventListener('click', () => {
+                const searchInput = document.querySelector('#search-input');
+                const searchValue = searchInput.value;
+                location.href = `/blog/?q=${searchValue}`;
             });
         </script>
     {% else %}
