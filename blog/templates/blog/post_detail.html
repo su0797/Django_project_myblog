@@ -37,7 +37,7 @@
     {% if comments %}
         <ul>
             {% for comment in comments %}
-                <li>{{ comment.content}} / {{ comment.created_at}}
+                <li>{{ comment.content}} - {{ comment.writer }} / {{ comment.created_at}}
                     {% if comment.writer == request.user %}
                         <form action="{% url 'blog:cm-delete' pk=comment.pk %}" method="post">
                             {% csrf_token %}
