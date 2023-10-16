@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import JoinForm, LoginForm
 
 # Create your views here.
+
+
 ### RegisterForm
 class Join(View):
     def get(self, request):
