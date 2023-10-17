@@ -3,7 +3,7 @@
 {% block content %}
 <hr>
     {% if user.is_authenticated %}
-        <h1>Blog</h1>
+        <h1>Board</h1>
         <form action="{% url 'blog:write' %}" class="btn">
             <input type="submit" value="Write">
         </form>
@@ -12,11 +12,11 @@
         <form action="{% url 'blog:list' %}" class="btn">
             <input type="submit" value="⟳">
         </form>
-        <!-- <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
+        <form  id="search-form" action="{% url 'blog:search' tag='value' %}" method="get">
             {% csrf_token %} 
             카테고리 검색 : <input id="search-input" type="text" placeholder="검색어를 입력하세요."/>   
             <input type="submit" value="Search">
-        </form> -->
+        </form> 
         
         <!-- 글이 있을 때 -->
         <!-- 테이블 -->

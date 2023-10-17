@@ -109,21 +109,14 @@ class Delete(View):
 
 
 # class SearchView(View):
-#     def get(self, request):
-#         selected_
-#         pass
-
-#     def post():
-#         pass
-
-
-# def search(request):
+#     def post(self, request):
 #         if request.method == 'POST':
 #             searched = request.POST['searched']  
 #             posts = Post.objects.filter(title__contains=searched) or Post.objects.filter(writer__contains=searched) or Post.objects.filter(category__contains=searched)
 #             return render(request, 'blog/post_search.html', {'searched': searched, 'posts': posts})
 #         else:
 #             return render(request, 'blog/post_search.html', {})
+
 
 #나중에 검색 기능 추가하기#
 class PostSearch(View):
